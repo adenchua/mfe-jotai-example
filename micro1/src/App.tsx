@@ -1,17 +1,16 @@
-import { useAtom } from "jotai";
+import { Route, Routes } from "react-router";
 
-import store from "./store";
-import Button from "./Button";
+import DetailPage from "./pages/DetailPage";
+import DetailViewPage from "./pages/DetailViewPage";
+import ListPage from "./pages/ListPage";
 
 function App() {
-  const [count] = useAtom(store.countAtom);
-
   return (
-    <div style={{ padding: "24px", border: "1px dotted red" }}>
-      <p>Remote 1</p>
-      <p>Count in remote: {count}</p>
-      <Button />
-    </div>
+    <Routes>
+      <Route path="list" element={<ListPage />} />
+      <Route path="detail" element={<DetailPage />} />
+      <Route path="detail/:id" element={<DetailViewPage />} />
+    </Routes>
   );
 }
 

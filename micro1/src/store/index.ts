@@ -1,3 +1,3 @@
-import countAtom from "./countAtom";
+import productsAtom from "./productsAtom";
 
-export default { countAtom };
+export default { productsAtom };

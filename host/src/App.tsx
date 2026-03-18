@@ -1,29 +1,34 @@
-import { useAtom } from "jotai";
-import { lazy, Suspense, useMemo } from "react";
-// @ts-expect-error import remote app
-import store from "remote/remote-1-store";
+import { Routes, Route } from "react-router";
+import { Suspense } from "react";
 
-const Remote = lazy(
-  // @ts-expect-error import remote app
-  async () => import("remote/remote-1"),
-);
+import RemoteProductApp from "./Pages/RemoteProductApp";
+import LandingPage from "./Pages/LandingPage";
+import Navbar from "./NavBar";
 
 function App() {
-  const [count] = useAtom(store.countAtom);
-
-  const memoizedValue = useMemo(() => {
-    return count * count;
-  }, [count]);
-
   return (
-    <>
-      <p>Host</p>
-      <p>Count in host: {count}</p>
-      <p>Derived Squared Value: {memoizedValue}</p>
-      <Suspense fallback="loading...">
-        <Remote />
-      </Suspense>
-    </>
+    <Routes>
+      <Route
+        path="/"
+        element={
+          <div>
+            <Navbar />
+            <LandingPage />
+          </div>
+        }
+      />
+      <Route
+        path="/products/*"
+        element={
+          <Suspense fallback={<p>Loading...</p>}>
+            <div>
+              <Navbar />
+              <RemoteProductApp />
+            </div>
+          </Suspense>
+        }
+      />
+    </Routes>
   );
 }
 

@@ -6,6 +6,9 @@ import { dependencies } from "./package.json";
 
 // https://vite.dev/config/
 export default defineConfig({
+  resolve: {
+    dedupe: ["react", "react-dom", "react-router"],
+  },
   plugins: [
     react(),
     federation({
@@ -26,7 +29,15 @@ export default defineConfig({
           requiredVersion: dependencies.react,
           singleton: true,
         },
+        "react-dom": {
+          requiredVersion: dependencies["react-dom"],
+          singleton: true,
+        },
         jotai: { singleton: true },
+        "react-router": {
+          singleton: true,
+          requiredVersion: dependencies["react-router"],
+        },
       },
     }),
   ],
